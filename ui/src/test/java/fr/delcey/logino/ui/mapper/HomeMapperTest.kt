@@ -9,6 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.math.RoundingMode
 import java.text.NumberFormat
 
 class HomeMapperTest {
@@ -38,9 +39,9 @@ class HomeMapperTest {
     fun `when getHomePricePerSquareMeter is called with a value, then it calls the numberFormat with the divided value`() {
         // Given
         val homePrice = BigDecimal(100)
-        val homeArea = BigDecimal(2)
-        val pricePerArea = BigDecimal(50)
-        val mockedResult = "50 €"
+        val homeArea = BigDecimal(3)
+        val pricePerArea = BigDecimal(33.33).setScale(2, RoundingMode.HALF_EVEN)
+        val mockedResult = "33 €"
         every { numberFormat.format(pricePerArea) } returns mockedResult
 
         // When

@@ -112,6 +112,30 @@ class HomeRepositoryRetrofitTest {
         }
         confirmVerified(listingsDataSource)
     }
+
+    @Test
+    fun `error case - getHomes has listing area equal to 0`() = testCoroutineRule.runTest {
+        // Given
+        val listingsDto = getDefaultListingsDto().copy(
+            listingDtos = getDefaultListingsDto().listingDtos.map { listingDto ->
+                listingDto.copy(area = 0.0)
+            }
+        )
+        coEvery { listingsDataSource.getListings() } returns listingsDto
+
+        // When
+        val result = homeRepositoryRetrofit.getHomes()
+
+        // Then
+        assertEquals(
+            HttpResult.Failure(isFromUserConnectivity = false),
+            result
+        )
+        coVerify(exactly = 1) {
+            listingsDataSource.getListings()
+        }
+        confirmVerified(listingsDataSource)
+    }
     // endregion getHomes
 
 
@@ -240,6 +264,28 @@ class HomeRepositoryRetrofitTest {
         }
         confirmVerified(listingsDataSource)
     }
+
+    @Test
+    fun `error case - getHome has listing area equal to 0`() = testCoroutineRule.runTest {
+        // Given
+        coEvery { listingsDataSource.getListing(id = 1) } returns getDefaultListingDto(index = 1).copy(
+            area = 0.0
+        )
+
+        // When
+        val result = homeRepositoryRetrofit.getHome(id = 1, forceRefresh = false)
+
+        // Then
+        assertEquals(
+            HttpResult.Failure(isFromUserConnectivity = false),
+            result
+        )
+        coVerify(exactly = 1) {
+            listingsDataSource.getListing(id = 1)
+        }
+        confirmVerified(listingsDataSource)
+    }
+
     // endregion getHome
 
     // region IN
@@ -252,7 +298,7 @@ class HomeRepositoryRetrofitTest {
 
     private fun getDefaultListingDto(index: Int) = ListingDto(
         id = index.toLong(),
-        area = index.toDouble(),
+        area = (index + 1).toDouble(),
         offerType = index,
         city = "city$index",
         price = index.toDouble(),
@@ -273,7 +319,7 @@ class HomeRepositoryRetrofitTest {
 
     private fun getDefaultHomeEntity(index: Int) = HomeEntity(
         id = index.toLong(),
-        area = BigDecimal(index),
+        area = BigDecimal(index + 1),
         city = "city$index",
         price = BigDecimal(index),
         propertyType = "propertyType$index",

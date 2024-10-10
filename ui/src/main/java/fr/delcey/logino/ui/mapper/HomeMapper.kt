@@ -3,6 +3,7 @@ package fr.delcey.logino.ui.mapper
 import fr.delcey.logino.ui.R
 import fr.delcey.logino.ui.utils.NativeText
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.NumberFormat
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,7 +17,7 @@ class HomeMapper @Inject constructor(private val numberFormat: NumberFormat) {
 
     fun getHomePricePerSquareMeter(homePrice: BigDecimal, area: BigDecimal): NativeText = NativeText.Argument(
         id = R.string.home_size_per_square_meter,
-        arg = numberFormat.format(homePrice.divide(area))
+        arg = numberFormat.format(homePrice.divide(area, 2, RoundingMode.HALF_EVEN))
     )
 
     fun getRoomsAndSize(

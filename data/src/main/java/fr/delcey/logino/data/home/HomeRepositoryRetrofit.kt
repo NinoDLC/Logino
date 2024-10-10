@@ -50,7 +50,11 @@ class HomeRepositoryRetrofit @Inject constructor(
 
     private fun mapToHomeEntity(listingDto: ListingDto) = HomeEntity(
         id = listingDto.id,
-        area = BigDecimal(listingDto.area),
+        area = if (listingDto.area == 0.0) {
+            throw IllegalStateException("ListingDto.area is 0 for [listingId = ${listingDto.id}]")
+        } else {
+            BigDecimal(listingDto.area)
+        },
         city = listingDto.city,
         price = BigDecimal(listingDto.price),
         propertyType = listingDto.propertyType,

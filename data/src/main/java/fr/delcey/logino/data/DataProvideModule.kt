@@ -23,13 +23,13 @@ class DataProvideModule {
         .baseUrl("https://gsl-apps-technical-test.dignp.com/")
         .client(
             OkHttpClient.Builder().apply {
-               // if (BuildConfig.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     addInterceptor(
                         HttpLoggingInterceptor().apply {
                             setLevel(HttpLoggingInterceptor.Level.BODY)
                         }
                     )
-             //   }
+                }
             }.build()
         )
         .build()

@@ -1,25 +1,22 @@
 package fr.delcey.logino.ui.mapper
 
-import android.icu.math.BigDecimal
-import android.icu.text.NumberFormat
 import fr.delcey.logino.ui.R
 import fr.delcey.logino.ui.utils.NativeText
+import java.math.BigDecimal
+import java.text.NumberFormat
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HomeMapper @Inject constructor() {
+class HomeMapper @Inject constructor(private val numberFormat: NumberFormat) {
+
     fun getHomePrice(homePrice: BigDecimal) = NativeText.Simple(
-        text = NumberFormat.getCurrencyInstance().apply {
-            maximumFractionDigits = 0
-        }.format(homePrice)
+        text = numberFormat.format(homePrice)
     )
 
-    fun getHomePricePerSquareMeter(price: BigDecimal, area: BigDecimal): NativeText = NativeText.Argument(
+    fun getHomePricePerSquareMeter(homePrice: BigDecimal, area: BigDecimal): NativeText = NativeText.Argument(
         id = R.string.home_size_per_square_meter,
-        arg = NumberFormat.getCurrencyInstance().apply {
-            maximumFractionDigits = 0
-        }.format(price.divide(area))
+        arg = numberFormat.format(homePrice.divide(area))
     )
 
     fun getRoomsAndSize(

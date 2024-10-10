@@ -1,6 +1,6 @@
 package fr.delcey.logino.domain.home.model
 
-import android.icu.math.BigDecimal
+import java.math.BigDecimal
 
 data class HomeEntity(
     val id: Long,

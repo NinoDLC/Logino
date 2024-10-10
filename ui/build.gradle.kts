@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kover)
     alias(libs.plugins.ksp)
 }
 
@@ -27,6 +28,13 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    @Suppress("UnstableApiUsage")
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 hilt {
@@ -50,6 +58,12 @@ dependencies {
 
     implementation(libs.coil)
 
+    testImplementation(libs.androidx.core.testing) {
+        // Removes the Mockito dependency bundled with arch core (wtf android ??)
+        exclude("org.mockito", "mockito-core")
+    }
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
+    testImplementation(libs.slf4j.nop) // To avoid the "SLF4J: No SLF4J providers were found." warning from MockK
 }

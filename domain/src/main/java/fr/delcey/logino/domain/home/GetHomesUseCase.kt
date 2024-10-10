@@ -18,7 +18,7 @@ class GetHomesUseCase @Inject constructor(
     private suspend fun doAndRetryCall(retryCount: Int = 0): HttpResult<List<HomeEntity>> =
         when (val result = homeRepository.getHomes()) {
             is HttpResult.Failure -> {
-                if (retryCount >= MAX_RETRIES) {
+                if (result.isFromUserConnectivity && retryCount < MAX_RETRIES) {
                     delay(1.seconds * retryCount)
                     doAndRetryCall(retryCount + 1)
                 } else {

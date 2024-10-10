@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kover)
     alias(libs.plugins.ksp)
 }
 
@@ -73,4 +74,39 @@ dependencies {
     implementation(libs.material)
 
     testImplementation(libs.junit)
+}
+
+dependencies {
+    kover(project(":ui"))
+    kover(project(":domain"))
+    kover(project(":data"))
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                androidGeneratedClasses()
+                annotatedBy(
+                    "dagger.internal.DaggerGenerated",
+                    "dagger.Module"
+                )
+                inheritedFrom("com.squareup.moshi.JsonAdapter")
+                packages(
+                    "dagger.hilt.internal.aggregatedroot.codegen",
+                    "hilt_aggregated_deps",
+
+                    "fr.delcey.logino.ui.navigation",
+                    "fr.delcey.logino.ui.utils",
+                )
+                classes(
+                    "*_ProvideFactory\$InstanceHolder", // From Hilt, not annotated so this is the last way to do so
+
+                    // Remove code below once Kover can handle UI tests!
+                    "*Adapter",
+                    "*Adapter\$*",
+                )
+            }
+        }
+    }
 }

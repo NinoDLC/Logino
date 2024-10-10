@@ -6,6 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ListingDto(
 
+    @Json(name = "id")
+    val id: Long,
+
     @Json(name = "area")
     val area: Double,
 
@@ -20,9 +23,6 @@ data class ListingDto(
 
     @Json(name = "propertyType")
     val propertyType: String,
-
-    @Json(name = "id")
-    val id: Long,
 
     @Json(name = "url")
     val url: String?,

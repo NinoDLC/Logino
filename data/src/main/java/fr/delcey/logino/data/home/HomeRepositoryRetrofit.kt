@@ -1,8 +1,9 @@
 package fr.delcey.logino.data.home
 
-import android.icu.math.BigDecimal
+import java.math.BigDecimal
 import androidx.collection.LruCache
 import fr.delcey.logino.data.home.model.ListingDto
+import fr.delcey.logino.data.home.model.ListingsDto
 import fr.delcey.logino.data.utils.safeHttpCall
 import fr.delcey.logino.domain.home.HomeRepository
 import fr.delcey.logino.domain.home.model.HomeEntity
@@ -18,7 +19,7 @@ class HomeRepositoryRetrofit @Inject constructor(
     private val lruCache: LruCache<Long, HomeEntity> = LruCache(50)
 
     override suspend fun getHomes(): HttpResult<List<HomeEntity>> = safeHttpCall {
-        val response = listingsDataSource.getListings()
+        val response: ListingsDto = listingsDataSource.getListings()
 
         HttpResult.Success(
             response.listingDtos.map { listingDto ->
@@ -38,7 +39,7 @@ class HomeRepositoryRetrofit @Inject constructor(
         }
 
         return safeHttpCall {
-            val response = listingsDataSource.getListing(id)
+            val response: ListingDto = listingsDataSource.getListing(id)
             HttpResult.Success(
                 mapToHomeEntity(response).also { homeEntity ->
                     lruCache.put(homeEntity.id, homeEntity)

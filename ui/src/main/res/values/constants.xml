@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shared_element_transition_home_photo" translatable="false">shared_element_transition_home_photo</string>
+    <string name="shared_element_transition_home_vendor_background" translatable="false">shared_element_transition_home_vendor_background</string>
+    <string name="shared_element_transition_home_vendor" translatable="false">shared_element_transition_home_vendor</string>
+</resources>

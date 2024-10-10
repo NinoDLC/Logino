@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Logino</string>
+    <string name="error_connectivity">Impossible de contacter le serveur. Êtes-vous connecté à internet ?</string>
+    <string name="error_generic">Oups, quelque chose ne s\'est pas bien passé. Désolé !</string>
+    <string name="home_size">%d m²</string>
+    <string name="home_size_per_square_meter">%s le m²</string>
+</resources>

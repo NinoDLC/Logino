@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="rooms">
-        <item quantity="one">%d room - </item>
-        <item quantity="other">%d rooms - </item>
+        <item quantity="one">"%d room - "</item>
+        <item quantity="other">"%d rooms - "</item>
     </plurals>
     <plurals name="bedrooms">
-        <item quantity="one">%d bedroom - </item>
-        <item quantity="other">%d bedrooms - </item>
+        <item quantity="one">"%d bedroom - "</item>
+        <item quantity="other">"%d bedrooms - "</item>
     </plurals>
 </resources>

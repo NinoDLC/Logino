@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="rooms">
+        <item quantity="one">"%d pièce - "</item>
+        <item quantity="other">"%d pièces - "</item>
+    </plurals>
+    <plurals name="bedrooms">
+        <item quantity="one">"%d chambre - "</item>
+        <item quantity="other">"%d chambres - "</item>
+    </plurals>
+</resources>
